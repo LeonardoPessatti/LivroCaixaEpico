@@ -15,9 +15,9 @@
 \blitz\vendor\Bootstrap::$settings['use_http_output_minify'] = true;
 
 //Data Source Name(http://php.net/manual/pt_BR/pdo.construct.php)
-\blitz\vendor\Bootstrap::$settings['db']['dns'] = 'mysql:host=localhost;dbname=testes_blitz;charset=utf8';
-\blitz\vendor\Bootstrap::$settings['db']['user'] = 'root';
-\blitz\vendor\Bootstrap::$settings['db']['pass'] = '12345678';
+\blitz\vendor\Bootstrap::$settings['db']['dns'] = 'mysql:host=mysql873.umbler.com:41890;dbname=caixaepico;charset=utf8';
+\blitz\vendor\Bootstrap::$settings['db']['user'] = 'leopessatti';
+\blitz\vendor\Bootstrap::$settings['db']['pass'] = 'gordo441997';
 //http://php.net/manual/pt_BR/pdo.setattribute.php
 \blitz\vendor\Bootstrap::$settings['db']['attributes'] = [
 	//PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
