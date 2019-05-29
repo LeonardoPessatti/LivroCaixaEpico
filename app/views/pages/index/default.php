@@ -1,4 +1,4 @@
-<?php $this->layout('default') ?>
+<?php $this->layout('deslogado') ?>
 
 
 <h1>Blitz framework</h1>
