@@ -2,38 +2,72 @@
 
 namespace blitz\app\controllers;
 
-
-\blitz\vendor\core\Model::import('Post');
-use \blitz\app\models\Post as Post;
+\blitz\vendor\core\Model::import('User');
+use \blitz\app\models\User as User;
 
 class Index extends \blitz\vendor\core\Controller {
+	public function actionIndex() {
+		// $this->log('Mais um acesso bem sucedido ʘ‿ʘ','views.txt');
+		// $User = new User();
+		// $User->log('Novo User feito :D', 'Users.csv');
+		$this->inputStart($_POST);
 
-    public function actionIndex() {
-        $this->log('Mais um acesso bem sucedido ʘ‿ʘ','views.txt');
-//        $post = new Post();
-//        $post->log("Novo post feito :D", "posts.csv");
-        $this->outputPage('index::default');
-    }
+		$this->inputAddValidation([
+			'nome' => 'required',
+			'cpf' => 'required',
+			'email' => 'required',
+			'senha' => 'required',
+			'emp_nome' => 'required',
+			'cnpj' => 'required'
+		]);
 
-    public function actionPosts() {
-        $post = new Post();
+		$this->inputAddFilter([
+			'nome' => 'trim|sanitize_string',
+			'cpf' => 'trim|sanitize_string',
+			'email' => 'trim|sanitize_string',
+			'senha' => 'trim|sanitize_string',
+			'emp_nome' => 'trim|sanitize_string',
+			'cnpj' => 'trim|sanitize_string'
+		]);
 
-        $this->outputPage('index::posts', [
-            'list' => $post->list()
-        ]);
-    }
+		$data = $this->getInputData();
+		if (!is_null($data)) {
+			$User = new User();
 
+			$User->nome = $data['nome'];
+			$User->cpf = $data['cpf'];
+			$User->email = $data['email'];
+			$User->senha = $data['senha'];
+			$User->emp_nome = $data['emp_nome'];
+			$User->cnpj = $data['cnpj'];
 
-    public function actionPost($id) {
-        $post = new Post();
-        
-        $post->id = $id;
+			$cadastrado = $User->cadastro();
 
-        $this->outputPage('index::post', [
-            'infos' => $post->infos()
-        ]);
-    }
+			if ($cadastrado != false) {
+				$this->outputPage('index::home');
+			} else {
+				$this->outputPage('index::cadastro', ['erro' => 1]);
+			}
+		}
 
+		$this->outputPage('index::cadastro');
+	}
 
+	public function actionUsers() {
+		$User = new User();
 
+		$this->outputPage('index::Users', [
+			'list' => $User->list()
+		]);
+	}
+
+	public function actionUser($id) {
+		$User = new User();
+
+		$User->id = $id;
+
+		$this->outputPage('index::User', [
+			'infos' => $User->infos()
+		]);
+	}
 }
