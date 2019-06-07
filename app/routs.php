@@ -9,29 +9,23 @@
  */
 
 $this->router->match('POST|GET', '/', function () {
-	$this->callController('index');
+	$this->callController('Conta');
 });
 
 $this->router->match('POST|GET', '/home', function () {
-	$this->callcontroller('index');
+	$this->callcontroller('Conta', 'home');
 });
 
-$this->router->get('/posts', function () {
-	$this->callcontroller('index', 'posts');
+$this->router->match('POST|GET', '/logoff', function () {
+	$this->callcontroller('Conta', 'EfetuaLogoff');
+});
+/**
+ * Todas as páginas que forem /usuario revalidarão as credenciais a cada carregamento.
+ */
+$this->router->before('GET|POST', '/usuario/.*', function () {
+	$this->callController('Conta', 'ValidaLogin');
 });
 
-$this->router->get('/post/(\d+)', function ($id) {
-	$this->callcontroller('index', 'post', $id);
-});
-
-$this->router->match('POST|GET', '/admin/posts', function () {
-	$this->callcontroller('AdminPosts');
-});
-
-$this->router->get('/admin/posts/new', function () {
-	$this->callcontroller('AdminPosts', 'new');
-});
-
-$this->router->post('/admin/posts/new', function () {
-	$this->callcontroller('AdminPosts', 'newSubmit');
+$this->router->match('POST|GET', '/usuario/home', function () {
+	$this->callcontroller('Usuario', 'home');
 });

@@ -28,7 +28,7 @@
 /**
  * Enable if you use specific lib
  */
-//\blitz\vendor\Bootstrap::$settings['vendor_libs'][]= 'bistro';//To Sessions
+\blitz\vendor\Bootstrap::$settings['vendor_libs'][] = 'bistro';//To Sessions
 \blitz\vendor\Bootstrap::$settings['vendor_libs'][] = 'database'; //To Databases
 /**
  * Every library needs a infos.php file with your settings

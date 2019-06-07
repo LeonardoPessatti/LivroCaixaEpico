@@ -12,10 +12,21 @@
 			</div>
 		</div>
 	<?php
+		} elseif ($erro == 2) {
+			?>
+		<div class="row">
+			<div class="col s12 m5">
+				<div class="card-panel red">
+					<span class="white-text">Login ou senha errado.</span>
+				</div>
+			</div>
+		</div>
+	<?php
 		}
+
 	?>
 	<h1>Vamos nos conhecer melhor primeiro</h1>
-	<form class="col s12"  method="POST" enctype="multipart/form-data">
+	<form class="col s12" method="POST" enctype="multipart/form-data">
 		<div class="row">
 			<div class="input-field col s6">
 				<i class="material-icons prefix">person</i>
@@ -36,8 +47,8 @@
 			</div>
 			<div class="input-field col s6">
 				<i class="material-icons prefix">lock_outline</i>
-				<input id="senha" name="senha" type="tel" class="validate">
-				<label for="senha">Senha</label>
+				<input id="novo_senha" name="novo_senha" type="tel" class="validate">
+				<label for="novo_senha">Senha</label>
 			</div>
 		</div>
 		<div class="row">

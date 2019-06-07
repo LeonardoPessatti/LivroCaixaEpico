@@ -16,13 +16,26 @@
 
 	<div class="navbar-fixed">
 		<nav>
-			<div class="nav-wrapper blue-grey lighten-1">
-				<a href="#!" class="brand-logo">Logo</a>
-				<ul class="right hide-on-med-and-down">
-					<li><a href="{url}">Home</a></li>
-					<!-- <li><a href="{url}/posts">Posts</a></li>
-					<li><a href="{url}/admin/posts">Go to admin</a></li> -->
-				</ul>
+			<div class="nav-wrapper indigo lighten-5 teal-text text-darken-2">
+				<a href="#!" class="brand-logo teal-text text-darken-2">Logo</a>
+				<form class="right" method="POST" enctype="multipart/form-data">
+					<!-- <span class="center">Já é cadastrado?</span> -->
+					<div class="row">
+						<div class="input-field col s4">
+							<i class="material-icons prefix">email</i>
+							<input id="login" name="login" type="text" class="validate">
+							<label for="login">Email</label>
+						</div>
+						<div class="input-field col s4">
+							<i class="material-icons prefix">lock_outline</i>
+							<input id="senha" name="senha" type="text" class="validate">
+							<label for="senha">Senha</label>
+						</div>
+						<div class="input-field col s2">
+							<button class="btn waves-effect waves-light blue-grey lighten-1" type="submit" name="action">Entrar</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</nav>
 	</div>
