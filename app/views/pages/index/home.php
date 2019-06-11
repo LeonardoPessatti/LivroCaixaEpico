@@ -1,4 +1,6 @@
-<?php $this->layout('logado') ?>
+<?php $this->layout('logado');
+// var_dump($user);
+?>
 
 <h1>Olá, <?= $user->nome?></h1>
 <div class="row">
@@ -9,21 +11,56 @@
 			<a class="waves-effect waves-light btn modal-trigger" href="#modalCli">Novo cliente</a>
 	</div>
 
-</div>
+
 <div class="row">
 	<div class="col s12 m6 offset-m3">
-		<div class="card blue-grey darken-1">
-				<div class="card-content white-text">
-				<span class="card-title">Card Title</span>
-				<p>I am a very simple card. I am good at containing small bits of information..</p>
+		<div class="card red hoverable">
+			<div class="card-content white-text">
+				<span class="card-title">Movimentação #26823</span>
+				<div class="row valign-wrapper">
+					<div class="col">
+						<h4>R$852,00</h4>
+					</div>
+					<div class="col">
+						<p>Para Lolita Love</p>
+					</div>
+				</div>
+				<p>Relativo a favores sexuais.</p>
+				<p>Incluído por <b>Leonardo Pessatti</b> na categoria <b>Drogas e prostitutas</b>.</p>
 			</div>
-			<div class="card-action">
-				<a href="#">This is a link</a>
-				<a href="#">This is a link</a>
-			</div>
+			<!-- <div class="card-action"> -->
+				<!-- <a href="#">This is a link</a>
+				<a href="#">This is a link</a> -->
+			<!-- </div> -->
 		</div>
 	</div>
 </div>
+
+</div>
+<div class="row">
+	<div class="col s12 m6 offset-m3">
+		<div class="card light-green darken-3 hoverable">
+			<div class="card-content white-text">
+				<span class="card-title">Movimentação #26824</span>
+				<div class="row valign-wrapper">
+					<div class="col">
+						<h4>R$852,00</h4>
+					</div>
+					<div class="col">
+						<p>Para LEOZITO'S DEVOPS</p>
+					</div>
+				</div>
+				<p>Relativo a contratação do software.</p>
+				<p>Incluído por <b>Leonardo Pessatti</b> na categoria <b>SOFTWARE</b>.</p>
+			</div>
+			<!-- <div class="card-action"> -->
+				<!-- <a href="#">This is a link</a>
+				<a href="#">This is a link</a> -->
+			<!-- </div> -->
+		</div>
+	</div>
+</div>
+
 
 
 
