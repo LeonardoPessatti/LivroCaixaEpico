@@ -20,7 +20,7 @@ class User extends \blitz\vendor\core\ModelDatabase {
 		if (!isset($repeat[0])) {
 			$this->getConn()
 			->executeQuery('INSERT INTO empresa (nome, cnpj)VALUES(?,?)', [
-				$this->nome, $this->cnpj]);
+				$this->emp_nome, $this->cnpj]);
 
 			$id = $this->getConn()
 				->select('LAST_INSERT_ID() as id')
@@ -28,17 +28,15 @@ class User extends \blitz\vendor\core\ModelDatabase {
 				->execute()
 				->fetchCollection($this);
 
-			// var_dump($id);
-			// exit;
 			$this->getConn()
-			->executeQuery('INSERT INTO usuario (nome, cpf, login, email, senha, empresa_id)VALUES(?,?,?,?,?,?)', [
-				$this->nome, $this->cpf, $this->email, $this->email, $this->senha, $id[0]->id]);
+				->executeQuery('INSERT INTO usuario (nome, cpf, login, email, senha, empresa_id)VALUES(?,?,?,?,?,?)', [
+					$this->nome, $this->cpf, $this->email, $this->email, $this->senha, $id[0]->id]);
 
 			$id = $this->getConn()
-				->select('LAST_INSERT_ID() as id')
-				->from('usuario')
-				->execute()
-				->fetchCollection($this);
+					->select('LAST_INSERT_ID() as id')
+					->from('usuario')
+					->execute()
+					->fetchCollection($this);
 
 			return $id[0]->id;
 		}
@@ -46,12 +44,31 @@ class User extends \blitz\vendor\core\ModelDatabase {
 		return false;
 	}
 
-	public function infos() {
-		return $this->getConn()
-			->select('id, title, content')
-			->from('post')
-			->where('id = ?', [$this->id])
-			->execute()
-			->fetchInto($this);
+	public function login() {
+		$user = $this->getConn()
+				->select('id')
+				->from('usuario')
+				->where('login = ?', [$this->login])
+				->where('senha = ?', [$this->senha])
+				->execute()
+				->fetchCollection($this);
+
+		// var_dump($user[0]->id);
+		// exit;
+		return $user[0]->id;
+	}
+
+	public function getUser() {
+		$user = $this->getConn()
+				->select('a.*, b.nome as empresa, b.cnpj')
+				->from('usuario a')
+				->join('join empresa b on a.empresa_id=b.id ')
+				->where('a.id = ?', [$this->id])
+				->execute()
+				->fetchCollection($this);
+
+		// var_dump($user);
+		// exit;
+		return $user[0];
 	}
 }
