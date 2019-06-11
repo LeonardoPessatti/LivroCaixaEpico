@@ -23,9 +23,9 @@ $this->router->match('POST|GET', '/logoff', function () {
  * Todas as páginas que forem /usuario revalidarão as credenciais a cada carregamento.
  */
 $this->router->before('GET|POST', '/usuario/.*', function () {
-	$this->callController('Conta', 'ValidaLogin');
+	$this->callController('Usuario', 'ValidaLogin');
 });
 
 $this->router->match('POST|GET', '/usuario/home', function () {
-	$this->callcontroller('Usuario', 'home');
+	$this->callcontroller('Conta', 'home');
 });

@@ -46,12 +46,13 @@ class Conta extends \blitz\vendor\core\Controller {
 			$User->login = $data['login'];
 			$User->senha = $data['senha'];
 
-			// var_dump($data);
-			// exit;
-			$login = $User->login();
+			$User->id = $User->login();
+			$login = $User->getUser();
 
 			if ($login != false) {
 				$this->sessionSet('usuario-logado', $login);
+				// $this->sessionSet('usuario-logado', $login->id);
+				// $this->sessionSet('empresa-logada', $login->empresa_id);
 				// $this->sessionSet('privacy', $login->isadmin);
 				$this->redirect('usuario/home');
 			} else {
@@ -81,16 +82,10 @@ class Conta extends \blitz\vendor\core\Controller {
 
 	public function actionhome() {
 		if ($this->sessionGet('usuario-logado')) {
-			$this->outputPage('index::home');
+			$this->outputPage('index::home', ['user' => $this->sessionGet('usuario-logado')]);
 		} else {
-			$this->outputPage('index::cadastro');
-			$this->redirect('/');
-		}
-	}
-
-	public function actionvalidalogin() {
-		if ($this->sessionHas('usuario-logado') == false) {
-			$this->redirect('home');
+			// $this->outputPage('index::cadastro');
+			$this->redirect('');
 		}
 	}
 
