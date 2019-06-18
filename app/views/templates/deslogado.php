@@ -28,7 +28,7 @@
 						</div>
 						<div class="input-field col s4">
 							<i class="material-icons prefix">lock_outline</i>
-							<input id="senha" name="senha" type="text" class="validate">
+							<input id="senha" name="senha" type="password" class="validate">
 							<label for="senha">Senha</label>
 						</div>
 						<div class="input-field col s2">

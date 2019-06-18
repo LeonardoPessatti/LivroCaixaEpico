@@ -37,3 +37,9 @@ $this->router->match('POST|GET', '/usuario/home', function () {
 $this->router->post('/usuario/ajax/cliente', function () {
 	$this->callcontroller('conta', 'cliente');
 });
+$this->router->post('/usuario/ajax/categoria', function () {
+	$this->callcontroller('conta', 'categoria');
+});
+$this->router->post('/usuario/ajax/movimentacao', function () {
+	$this->callcontroller('conta', 'movimentacao');
+});

@@ -42,12 +42,12 @@
 		<div class="row">
 			<div class="input-field col s6">
 				<i class="material-icons prefix">email</i>
-				<input id="email" name="email" type="tel" class="validate">
+				<input id="email" name="email" type="email" class="validate">
 				<label for="email">Email</label>
 			</div>
 			<div class="input-field col s6">
 				<i class="material-icons prefix">lock_outline</i>
-				<input id="novo_senha" name="novo_senha" type="tel" class="validate">
+				<input id="novo_senha" name="novo_senha" type="password" class="validate">
 				<label for="novo_senha">Senha</label>
 			</div>
 		</div>
@@ -60,7 +60,7 @@
 			</div>
 			<div class="input-field col s6">
 				<i class="material-icons prefix">verified_user</i>
-				<input id="cnpj" name="cnpj" type="tel" class="validate">
+				<input id="cnpj" name="cnpj" type="text" class="validate">
 				<label for="cnpj">CNPJ</label>
 			</div>
 		</div>

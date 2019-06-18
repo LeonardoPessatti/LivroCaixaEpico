@@ -66,10 +66,12 @@ class Conta extends \blitz\vendor\core\Controller {
 			$User->emp_nome = $data['emp_nome'];
 			$User->cnpj = $data['cnpj'];
 
-			$cadastrado = $User->cadastro();
-
-			if ($cadastrado != false) {
-				// $this->sessionSet('usuario-logado', $cadastrado);
+			$User->id = $User->cadastro();
+			// var_dump($User->cadastro());
+			// var_dump($User->getUser());
+			// exit;
+			if ($User->id != false) {
+				$this->sessionSet('usuario-logado', $User->getUser());
 
 				$this->redirect('usuario/home');
 			} else {
@@ -80,16 +82,71 @@ class Conta extends \blitz\vendor\core\Controller {
 		}
 	}
 
-	public function actioncliente() {
+	public function actionCliente() {
 		$this->inputStart($_POST);
 		$data = $this->getInputData();
-		// var_dump($data);
-		$this->outputJson($data['nome']);
+		$User = new User();
+		if (!empty($data['nome'])) {
+			$User->nome = $data['nome'];
+			$User->empresa_id = $this->sessionGet('usuario-logado')->empresa_id;
+			$status = $User->novoCliente();
+			if (!is_int($status)) {
+				$status->erro = 1;
+			}
+		} else {
+			$status->erro = 0;
+		}
+		$this->outputJson($status);
+	}
+
+	public function actionCategoria() {
+		$this->inputStart($_POST);
+		$data = $this->getInputData();
+		$User = new User();
+		if (!empty($data['nome'])) {
+			$User->nome = $data['nome'];
+			$User->desc = $data['desc'];
+			$User->empresa_id = $this->sessionGet('usuario-logado')->empresa_id;
+			$status = $User->novaCategoria();
+			if (!is_int($status)) {
+				$status->erro = 1;
+			}
+		} else {
+			$status->erro = 0;
+		}
+		$this->outputJson($status);
+	}
+
+	public function actionMovimentacao() {
+		$this->inputStart($_POST);
+		$data = $this->getInputData();
+		$User = new User();
+		// $this->outputJson($data);
+
+		if (!empty($data['valor'])) {
+			$User->valor = $data['valor'];
+			$User->desc = $data['desc'];
+			$User->is_saida = $data['is_saida'] == 'true' ? 1 : 0;
+			$User->cli = $data['cli'];
+			$User->cat = $data['cat'];
+			$User->usuario_id = $this->sessionGet('usuario-logado')->id;
+			// var_dump($User);
+			$status = $User->novaMovimentacao();
+			if (!is_int($status)) {
+				$status->erro = 1;
+			}
+		} else {
+			$status->erro = 0;
+		}
+		$this->outputJson($status);
 	}
 
 	public function actionhome() {
 		if ($this->sessionGet('usuario-logado')) {
-			$this->outputPage('index::home', ['user' => $this->sessionGet('usuario-logado')]);
+			$User = new User();
+			$User->empresa_id = $this->sessionGet('usuario-logado')->empresa_id;
+
+			$this->outputPage('index::home', ['user' => $this->sessionGet('usuario-logado'), 'movs' => $User->getMov()]);
 		} else {
 			// $this->outputPage('index::cadastro');
 			$this->redirect('');

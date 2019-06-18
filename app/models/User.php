@@ -16,8 +16,9 @@ class User extends \blitz\vendor\core\ModelDatabase {
 			->where('cnpj = ?', [$this->cnpj])
 			->execute()
 			->fetchCollection($this);
-
-		if (!isset($repeat[0])) {
+		// var_dump($repeat);
+		// exit;
+		if (!isset($repeat[0]->id)) {
 			$this->getConn()
 			->executeQuery('INSERT INTO empresa (nome, cnpj)VALUES(?,?)', [
 				$this->emp_nome, $this->cnpj]);
@@ -60,29 +61,88 @@ class User extends \blitz\vendor\core\ModelDatabase {
 
 	public function getUser() {
 		$user = $this->getConn()
-				->select('a.*, b.nome as empresa, b.cnpj')
-				->from('usuario a')
-				->join('join empresa b on a.empresa_id=b.id ')
-				->where('a.id = ?', [$this->id])
-				->execute()
-				->fetchCollection($this);
+		->select('a.*, b.nome as empresa, b.cnpj')
+		->from('usuario a')
+		->join('join empresa b on a.empresa_id=b.id ')
+		->where('a.id = ?', [$this->id])
+		->execute()
+		->fetchCollection($this);
 
 		$user[0]->clientes = $this->getConn()
-				->select('id,nome')
-				->from('cliente')
-				->where('empresa_id = ?', [$user[0]->empresa_id])
-				->execute()
-				->fetchCollection($this);
+		->select('id,nome')
+		->from('cliente')
+		->where('empresa_id = ?', [$user[0]->empresa_id])
+		->execute()
+		->fetchCollection($this);
 
 		$user[0]->categorias = $this->getConn()
-				->select('id,nome, obs')
-				->from('categoria')
-				->where('empresa_id = ?', [$user[0]->empresa_id])
-				->execute()
-				->fetchCollection($this);
-		// var_dump($user[0]->categorias);
+		->select('id,nome, obs')
+		->from('categoria')
+		->where('empresa_id = ?', [$user[0]->empresa_id])
+		->execute()
+		->fetchCollection($this);
+		// var_dump($user[0]->clientes);
 		// exit;
 
 		return $user[0];
+	}
+
+	public function getMov() {
+		$mov = $this->getConn()
+		->select('a.*, b.nome as user, d.nome as cat, d.obs as cat_desc, e.nome as cli ')
+		->from('movimentacao a')
+		->join('join usuario b on a.usuario_id = b.id ')
+		->join('join empresa c on b.empresa_id = c.id ')
+		->join('join categoria d on a.categoria_id = d.id ')
+		->join('join cliente e on a.cliente_id = e.id ')
+		->where('b.empresa_id = ?', [$this->empresa_id])
+		->execute()
+		->fetchCollection($this);
+
+		return $mov;
+	}
+
+	public function novoCliente() {
+		$this->getConn()
+			->executeQuery('INSERT INTO cliente (nome, empresa_id)VALUES(?,?)', [
+				$this->nome, $this->empresa_id]);
+
+		$id = $this->getConn()
+				->select('LAST_INSERT_ID() as id')
+				->from('cliente')
+				->execute()
+				->fetchCollection($this);
+
+		return $id[0]->id;
+	}
+
+	public function novaCategoria() {
+		$this->getConn()
+			->executeQuery('INSERT INTO categoria (nome, obs, empresa_id)VALUES(?,?,?)', [
+				$this->nome, $this->desc, $this->empresa_id]);
+
+		$id = $this->getConn()
+				->select('LAST_INSERT_ID() as id')
+				->from('categoria')
+				->execute()
+				->fetchCollection($this);
+
+		return $id[0]->id;
+	}
+
+	public function novaMovimentacao() {
+		$this->getConn()
+			->executeQuery('INSERT INTO movimentacao (valor, descricao, data, is_saida, cliente_id, categoria_id, usuario_id)VALUES(?,?,now(),?,?,?,?)', [
+				$this->valor, $this->desc, $this->is_saida, $this->cli, $this->cat, $this->usuario_id]);
+
+		$id = $this->getConn()
+				->select('LAST_INSERT_ID() as id')
+				->from('movimentacao')
+				->execute()
+				->fetchCollection($this);
+		// var_dump($id);
+		// exit;
+
+		return $id[0]->id;
 	}
 }
