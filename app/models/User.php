@@ -67,8 +67,22 @@ class User extends \blitz\vendor\core\ModelDatabase {
 				->execute()
 				->fetchCollection($this);
 
-		// var_dump($user);
+		$user[0]->clientes = $this->getConn()
+				->select('id,nome')
+				->from('cliente')
+				->where('empresa_id = ?', [$user[0]->empresa_id])
+				->execute()
+				->fetchCollection($this);
+
+		$user[0]->categorias = $this->getConn()
+				->select('id,nome, obs')
+				->from('categoria')
+				->where('empresa_id = ?', [$user[0]->empresa_id])
+				->execute()
+				->fetchCollection($this);
+		// var_dump($user[0]->categorias);
 		// exit;
+
 		return $user[0];
 	}
 }

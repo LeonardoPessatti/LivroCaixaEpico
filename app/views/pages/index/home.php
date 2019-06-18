@@ -1,16 +1,89 @@
 <?php $this->layout('logado');
-// var_dump($user);
+// var_dump($user->categorias);
 ?>
 
 <h1>Olá, <?= $user->nome?></h1>
 <div class="row">
 	<div class="col s12 m3 offset-m3">
-			<a class="waves-effect waves-light btn modal-trigger" href="#modalCat">Nova Categoria</a>
-		</div>
-		<div class="col s12 m3">
-			<a class="waves-effect waves-light btn modal-trigger" href="#modalCli">Novo cliente</a>
+		<a class="waves-effect waves-light btn modal-trigger" href="#modalCat">Nova Categoria</a>
 	</div>
+	<div class="col s12 m3">
+		<a class="waves-effect waves-light btn modal-trigger" href="#modalCli">Novo cliente</a>
+	</div>
+</div>
 
+
+<div class="row">
+	<div class="col s12 m6 offset-m3">
+		<div class="card grey lighten-5 hoverable">
+			<div class="card-content ">
+				<span class="card-title">Nova Movimentação</span>
+				<div class="row valign-wrapper">
+					<form class="col s12">
+
+						<div class="row">
+							<div class="input-field col s4">
+								<input id="valor" type="text" class="validate">
+								<label for="first_name">Valor</label>
+							</div>
+							<div class="input-field col s8">
+								<input id="desc" type="text" class="validate">
+								<label for="desc">Descrição</label>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="input-field col s12 m6">
+								<select id="cli">
+									<option value="" disabled selected>Escolha o negociante</option>
+
+								<?php
+								foreach ($user->clientes as $cliente) {
+									echo '<option value="' . $cliente->id . '">' . $cliente->nome . '</option>';
+								}
+								?>
+
+								</select>
+								<label>Negociante</label>
+							</div>
+							<div class="input-field col s12 m6">
+								<select id="cat">
+									<option value="" disabled selected>Escolha a Categoria</option>
+									<?php
+										foreach ($user->categorias as $categoria) {
+											echo '<option value="' . $categoria->id . '">' . $categoria->nome . '</option>';
+										}
+									?>
+								</select>
+								<label>Categoria</label>
+							</div>
+
+						<div class="row">
+							<div class="col m3">
+								<div class="switch">
+									<label>
+										Entrada
+										<input type="checkbox">
+										<span class="lever"></span>
+										Saída
+									</label>
+								</div>
+							</div>
+							<div class="col m9">
+
+							</div>
+						</div>
+
+					</form>
+				</div>
+			</div>
+			<div class="card-action">
+				<a href="#">Inserir</a>
+				<a href="#">Limpar</a>
+			</div>
+		</div>
+	</div>
+</div>
 
 <div class="row">
 	<div class="col s12 m6 offset-m3">
@@ -64,22 +137,40 @@
 
 
 
-  <div id="modalCat" class="modal">
-    <div class="modal-content">
-      <h4>Modal Header</h4>
-      <p>A bunch of text</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>
-  </div>
+	<div id="modalCat" class="modal">
+		<div class="modal-content">
+			<h4 class="card-title">Nova Categoria</h4>
+			<form class="col s12">
+				<div class="row">
+					<div class="input-field col s4">
+						<input id="nome" type="text" class="validate">
+						<label for="nome">Nome</label>
+					</div>
+					<div class="input-field col s8">
+						<input id="desc" type="text" class="validate">
+						<label for="desc">Descrição</label>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-close waves-effect waves-green btn-flat">Cadastrar</a>
+		</div>
+	</div>
 
-  <div id="modalCli" class="modal">
-    <div class="modal-content">
-      <h4>Modal Header</h4>
-      <p>A bunch of text</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>
-  </div>
+	<div id="modalCli" class="modal">
+		<div class="modal-content">
+			<h4 class="card-title">Novo Cliente</h4>
+			<form class="col s12">
+				<div class="row">
+					<div class="input-field col s4">
+						<input id="nome" type="text" class="validate">
+						<label for="nome">Nome</label>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-close waves-effect waves-green btn-flat">Cadastrar</a>
+		</div>
+	</div>

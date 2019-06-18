@@ -29,3 +29,11 @@ $this->router->before('GET|POST', '/usuario/.*', function () {
 $this->router->match('POST|GET', '/usuario/home', function () {
 	$this->callcontroller('Conta', 'home');
 });
+
+/**
+ * Cadastros Ajax
+ */
+
+$this->router->post('/usuario/ajax/cliente', function () {
+	$this->callcontroller('conta', 'cliente');
+});

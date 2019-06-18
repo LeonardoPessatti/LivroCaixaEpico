@@ -80,6 +80,13 @@ class Conta extends \blitz\vendor\core\Controller {
 		}
 	}
 
+	public function actioncliente() {
+		$this->inputStart($_POST);
+		$data = $this->getInputData();
+		// var_dump($data);
+		$this->outputJson($data['nome']);
+	}
+
 	public function actionhome() {
 		if ($this->sessionGet('usuario-logado')) {
 			$this->outputPage('index::home', ['user' => $this->sessionGet('usuario-logado')]);
