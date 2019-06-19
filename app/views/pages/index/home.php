@@ -87,10 +87,10 @@
 	</div>
 	<div class="row">
 		<div class="col s12 m4 offset-m3">
-			<p>Total a Receber <b>R$ <span id="receber"><?= $saldo->entrada ?></span></b></p>
+			<p>Total a Receber <b>R$ <span id="receber"><?= $saldo->entrada ?: 0 ?></span></b></p>
 		</div>
 		<div class="col s12 m4">
-			<p>Total a Pagar <b>R$ <span id="pagar"><?= $saldo->saida ?></span></b></p>
+			<p>Total a Pagar <b>R$ <span id="pagar"><?= $saldo->saida ?: 0 ?></span></b></p>
 		</div>
 	</div>
 <div id="main"></div>
