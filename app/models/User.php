@@ -145,4 +145,32 @@ class User extends \blitz\vendor\core\ModelDatabase {
 
 		return $id[0]->id;
 	}
+
+	public function saldo() {
+		$saida = $this->getConn()
+				->select('sum(valor) as valor')
+				->from('movimentacao a')
+				->join('join usuario b on a.usuario_id = b.id')
+				->where('empresa_id = ?', [$this->empresa_id])
+				->where('is_saida = 1')
+				->execute()
+				->fetchCollection($this);
+
+		$entrada = $this->getConn()
+				->select('sum(valor) as valor')
+				->from('movimentacao a')
+				->join('join usuario b on a.usuario_id = b.id')
+				->where('empresa_id = ?', [$this->empresa_id])
+				->where('is_saida = 0')
+				->execute()
+				->fetchInto($this);
+
+		$saldo->saida = $saida[0]->valor;
+		$saldo->entrada = $entrada->valor;
+		// var_dump($saida);
+		// var_dump($entrada);
+		// exit;
+
+		return $saldo;
+	}
 }

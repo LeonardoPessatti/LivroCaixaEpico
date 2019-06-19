@@ -146,7 +146,7 @@ class Conta extends \blitz\vendor\core\Controller {
 			$User = new User();
 			$User->empresa_id = $this->sessionGet('usuario-logado')->empresa_id;
 
-			$this->outputPage('index::home', ['user' => $this->sessionGet('usuario-logado'), 'movs' => $User->getMov()]);
+			$this->outputPage('index::home', ['user' => $this->sessionGet('usuario-logado'), 'movs' => $User->getMov(), 'saldo' => $User->saldo()]);
 		} else {
 			// $this->outputPage('index::cadastro');
 			$this->redirect('');

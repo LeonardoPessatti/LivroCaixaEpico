@@ -54,8 +54,18 @@ $(document).ready(function () {
 					M.toast({
 						html: 'Movimentação cadastrada com sucesso!'
 					});
-					var saida = is_saida = 'false' ? 0 : 1;
-					card(saida, data, $("#valor").val(), $("#cli").text(), $("#mov_desc").val(), $("#nome_hidden").val(), $("#cat").text())
+					// var saida = is_saida = 'false' ? 0 : 1;
+
+					if ($("#is_saida").prop('checked') == false) {
+						var saida = 0;
+						$("#receber").html(parseFloat($("#receber").html()) + parseFloat($("#valor").val()));
+					} else {
+						var saida = 1;
+						$("#pagar").html(parseFloat($("#pagar").html()) + parseFloat($("#valor").val()));
+					}
+
+					card(saida, data, $("#valor").val(), $("#cli option:selected").text(), $("#mov_desc").val(), $("#nome_hidden").val(), $("#cat option:selected").text());
+
 
 				} else {
 					M.toast({
@@ -65,7 +75,10 @@ $(document).ready(function () {
 				}
 			});
 	});
+	$("#clean").click(function () {
+		$('form').trigger("reset");
 
+	});
 });
 
 function card(is_saida, id, valor, cli, desc, user, cat) {

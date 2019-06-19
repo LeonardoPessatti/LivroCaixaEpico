@@ -8,7 +8,8 @@
 	'name' => 'Livro Caixa Épico',
 	'author' => 'Leonardo Pessatti',
 	'author_email' => 'lpessatti@gmail.com',
-	'url' => 'http://localhost/LivroCaixaEpico'
+	// 'url' => 'http://localhost/LivroCaixaEpico'
+	'url' => 'caixa.leonardopessatti.com.br'
 ];
 
 \blitz\vendor\Bootstrap::$settings['use_http_encoding_gzip'] = true;

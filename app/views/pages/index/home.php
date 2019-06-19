@@ -14,7 +14,6 @@
 		</div>
 	</div>
 
-
 	<div class="row">
 		<div class="col s12 m6 offset-m3">
 			<div class="card grey lighten-5 hoverable">
@@ -84,6 +83,14 @@
 					<a id="clean">Limpar</a>
 				</div>
 			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col s12 m4 offset-m3">
+			<p>Total a Receber <b>R$ <span id="receber"><?= $saldo->entrada ?></span></b></p>
+		</div>
+		<div class="col s12 m4">
+			<p>Total a Pagar <b>R$ <span id="pagar"><?= $saldo->saida ?></span></b></p>
 		</div>
 	</div>
 <div id="main"></div>
